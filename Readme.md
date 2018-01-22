@@ -320,29 +320,29 @@ using (var reader = connection.ExecuteReader("select * from Shapes"))
     var circleParser = reader.GetRowParser<IShape>(typeof(Circle));
     var squareParser = reader.GetRowParser<IShape>(typeof(Square));
     var triangleParser = reader.GetRowParser<IShape>(typeof(Triangle));
-  	
-  	var typeColumnIndex = reader.GetOrdinal("Type");
-  	
-  	while (reader.Read())
+    
+    var typeColumnIndex = reader.GetOrdinal("Type");
+    
+    while (reader.Read())
     {
         IShape shape;
         var type = (ShapeType)reader.GetInt32(typeColumnIndex);
         switch (type)
         {
-          	case ShapeType.Circle:
-            	shape = circleParser(reader);
-            	break;
+            case ShapeType.Circle:
+                shape = circleParser(reader);
+                break;
             case ShapeType.Square:
-            	shape = squareParser(reader);
-            	break;
-          	case ShapeType.Triangle:
-            	shape = triangleParser(reader);
-            	break;
-          	default:
-            	throw new NotImplementedException();
+                shape = squareParser(reader);
+                break;
+            case ShapeType.Triangle:
+                shape = triangleParser(reader);
+                break;
+            default:
+                throw new NotImplementedException();
         }
       
-      	shapes.Add(shape);
+        shapes.Add(shape);
     }
 }
 ```
